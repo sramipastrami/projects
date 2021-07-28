@@ -38,6 +38,20 @@ class App extends React.Component {
     };
   }
 
+  addMethod(track) {
+    const trackFound = this.state.playlistTracks.find(
+      (song) => song.id === track.id
+    ); //returns track obj or undefined
+
+    if (trackFound) {
+      return;
+    }
+
+    this.setState({
+      playlistTracks: this.state.playlistTracks.concat(track),
+    });
+  }
+
   render() {
     return (
       <div>
