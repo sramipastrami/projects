@@ -1,14 +1,14 @@
 import React from "react";
 import "./SearchResults.css";
 
-import Tracklist from "../Tracklist/Tracklist";
+import TrackList from "../TrackList/TrackList";
 
 class SearchResults extends React.Component {
   render() {
     return (
       <div className="SearchResults">
         <h2>Results</h2>
-        <Tracklist />
+        <TrackList tracks={this.props.searchResults} />
       </div>
     );
   }
