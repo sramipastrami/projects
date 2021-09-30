@@ -51,17 +51,19 @@ const Spotify = {
     const headers = { Authorization: `Bearer ${accessToken}` };
     let userId;
 
+    //fetch returns a promise object ;; does this return user's info?
     return fetch("https://api.spotify.com/v1/me", { headers: headers })
       .then((response) => response.json())
       .then((jsonResponse) => {
-        userId = jsonResponse.id;
+        userId = jsonResponse.id; // jsonRes.id = unique indiv access?
+        //makes another fetch call using url which retrieves the current userId's playlists
         return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
           headers: headers,
-          method: "POST",
-          body: JSON.stringify({ name: name }),
+          method: "POST", //fetch uses 'post' to display json-encoded data
+          body: JSON.stringify({ name: name }), //json.stringify converts a js obj to json string (readable); displays PLST Name
         });
       })
-      .then((response) => response.json())
+      .then((response) => response.json()) //converts the promise obj. into readable format
       .then((jsonResponse) => {
         const playlistId = jsonResponse.id;
         return fetch(

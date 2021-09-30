@@ -13,7 +13,7 @@ class App extends React.Component {
 
     this.state = {
       searchResults: [],
-      playlistName: "myplaylist",
+      playlistName: "myPlaylist",
       playlistTracks: [],
     };
 
@@ -38,7 +38,7 @@ class App extends React.Component {
   removeTrack(unwantedTrack) {
     const filteredList = this.state.playlistTracks.filter(
       (existingTrack) => existingTrack.id !== unwantedTrack.id
-    );
+    ); //filters out all the tracks that dont have the same id as the unwantedTrack
 
     this.setState({ playlistTracks: filteredList });
   }
@@ -56,10 +56,14 @@ class App extends React.Component {
       });
     });
   }
-
+  //
   search(term) {
     Spotify.search(term).then((searchResults) => {
-      this.setState({ searchResults: searchResults });
+      const existingIds = this.state.playlistTracks.map((track) => track.id); //returns a new arr. with all existing track ids
+      const filteredArr = searchResults.filter(
+        (result) => !existingIds.includes(result.id)
+      );
+      this.setState({ searchResults: filteredArr });
     });
   }
 
