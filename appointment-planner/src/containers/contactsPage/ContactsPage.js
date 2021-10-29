@@ -1,17 +1,28 @@
 import React from "react";
+import { ContactForm } from "../../components/contactForm/ContactForm";
+import { TileList } from "../../components/tileList/TileList";
 
-export const ContactsPage = () => {
-  /*
-  Define state variables for 
-  contact info and duplicate check
-  */
+export const ContactsPage = (props) => {
+  const contacts = props.contacts;
+  const addContact = props.addContact;
+
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    /*
-    Add contact info and clear data
-    if the contact name is not a duplicate
-    */
+
+    if (contacts.find((contact) => contact.name === name)) {
+      return;
+    }
+
+    addContact(name, phone, email);
+    setName("");
+    setPhone("");
+    setEmail("");
+
+    //Check for duplicates whenever the name in the form changes and indicate the name is a duplicate
   };
 
   /*
@@ -22,11 +33,21 @@ export const ContactsPage = () => {
   return (
     <div>
       <section>
-        <h2>Add Contact</h2> 
+        <h2>Add Contact</h2>
+        <ContactForm
+          name={name}
+          phone={phone}
+          email={email}
+          setName={setName}
+          setPhone={setPhone}
+          setEmail={setEmail}
+          handleSubmit={handleSubmit}
+        />
       </section>
       <hr />
       <section>
         <h2>Contacts</h2>
+        <TileList contacts={contacts} />
       </section>
     </div>
   );
