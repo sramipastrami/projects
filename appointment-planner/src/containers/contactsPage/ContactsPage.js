@@ -21,14 +21,7 @@ export const ContactsPage = (props) => {
     setName("");
     setPhone("");
     setEmail("");
-
-    //Check for duplicates whenever the name in the form changes and indicate the name is a duplicate
   };
-
-  /*
-  Using hooks, check for contact name in the 
-  contacts array variable in props
-  */
 
   return (
     <div>
@@ -47,7 +40,7 @@ export const ContactsPage = (props) => {
       <hr />
       <section>
         <h2>Contacts</h2>
-        <TileList contacts={contacts} />
+        <TileList tileList={contacts} />
       </section>
     </div>
   );
